@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css" />
+    <title>{% block title %}Amazon Product Admin Query{% endblock %}</title>
+</head>
+
+<body>
+    {% csrf_token %}
+    <form action="{% url 'query_titles:scrape' %}" method="post">
+        {% for title in query_titles %}
+        <h4>{{ title.name }}</h4>
+        <select name= {{ title.name }}>
+        {% for value in title.query_value_set.all %}
+            <option value= {{ value.name }}> {{ value.name }}</option>
+        {% endfor %}
+    <input type="submit" value="OK">
+</form>
+</body>
+</html>

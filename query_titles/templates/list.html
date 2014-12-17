@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Amazon Product Admin Query</title>
+</head>
+
+<body>
+    <h1>Query Fields:</h1>
+    <form action="{% url 'scrape' %}" method="post">
+        {% csrf_token %}
+        {% for title in list_titles %}
+            {% for key, values in title.iteritems %}
+                <div style="width: 33%; float:left">
+                    <h4>{{ key }}</h4>
+                    <select name="{{ key }}">
+                        {% for value in values %}
+                            <option value= "{{ value }}">{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    <input type="submit" value="Submit Query">
+</form>
+</body>
+</html>

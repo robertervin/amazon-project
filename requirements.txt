@@ -1,0 +1,7 @@
+Django==1.7.1
+scrapy==0.24.4
+beautifulsoup4==4.3.2
+python-amazon-simple-product-api==1.5.0
+python-amazon-product-api==0.2.8
+sendgrid
+django-treebeard
