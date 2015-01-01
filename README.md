@@ -32,6 +32,8 @@ in the SQLite3 database for further use of the study.
 
 - [Django-Treebeard](https://github.com/tabo/django-treebeard)												- Efficient Tree Structures for Django
 
+- [Python-Amazon-MWS](https://github.com/czpython/python-amazon-mws)												- API for Amazon MWS Requests
+
 ## Setup
 
 Ensure you have Python 2.7.6 by running `python -V`

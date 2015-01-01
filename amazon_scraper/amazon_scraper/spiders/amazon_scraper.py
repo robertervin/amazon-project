@@ -68,22 +68,22 @@ class AmazonSpider(scrapy.Spider):
             for asin in products_grid:
                 print asin
                 try:
-                    result = api.item_lookup(asin, ResponseGroup='Large')
+                    # result = api.item_lookup(asin, ResponseGroup='Large')
                     product_data = {}
                     product_data['ASIN'] = asin
-                    product_data['title'] = result.Items.Item.ItemAttributes.Title
-                    r = HTMLParser.HTMLParser()
-                    product_data['title'] = r.unescape(product_data['title'])
-                    product_data['product_url'] = result.Items.Item.DetailPageURL
-                    try:
-                        product_data['upc'] = result.Items.Item.ItemAttributes.UPC
-                    except:
-                        pass
-                    product_data['price'] = result.Items.Item.ItemAttributes.ListPrice.Amount
-                    product_data['image'] = result.Items.Item.LargeImage.URL
+                    # product_data['title'] = result.Items.Item.ItemAttributes.Title
+                    # r = HTMLParser.HTMLParser()
+                    # product_data['title'] = r.unescape(product_data['title'])
+                    # product_data['product_url'] = result.Items.Item.DetailPageURL
+                    # try:
+                    #     product_data['upc'] = result.Items.Item.ItemAttributes.UPC
+                    # except:
+                    #     pass
+                    # product_data['price'] = result.Items.Item.ItemAttributes.ListPrice.Amount
+                    # product_data['image'] = result.Items.Item.LargeImage.URL
                     # Gets url for reviews iframe
-                    reviews_url = (result.Items.Item.CustomerReviews.IFrameURL)
-                    product_data['reviews_url'] = reviews_url
+                    # reviews_url = (result.Items.Item.CustomerReviews.IFrameURL)
+                    # product_data['reviews_url'] = reviews_url
                     # response = requests.get(str(reviews_url))
                     # tree = lxml.etree.HTML(response.text)
                     # has_reviews = False
