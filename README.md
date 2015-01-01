@@ -52,6 +52,10 @@ Navigate to where `requirements.txt` is located and run `sudo pip install -r req
 
 `sudo python manage.py runserver`
 
+Copy and paste the necessary code from the **Confidential Information** google doc into `scripts/webstore.py`
+
+Run `touch ~./amazon-product-api`, then `nano ~/.amazon-product-api` and copy and paste the necessary code from **Confidential Information** into that file and press **CTRL+O -> Enter -> CTRL+X**
+
 The apache2 server we just installed should now boot up and you should have a url in terminal you can copy/paste into your browser.
 
 When you navigate to the url, it should return the matching Key, Value Set Pairs that match your given query. 
