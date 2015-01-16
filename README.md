@@ -28,11 +28,7 @@ in the SQLite3 database for further use of the study.
 
 - [Python-Amazon-Product-API](http://python-amazon-product-api.readthedocs.org/en/latest/) 	 				 - Python API for Querying Amazon Product API
 
-- [Sendgrid](https://github.com/sendgrid/sendgrid-python)													- Send Emails via REST API
-
 - [Django-Treebeard](https://github.com/tabo/django-treebeard)												- Efficient Tree Structures for Django
-
-- [Python-Amazon-MWS](https://github.com/czpython/python-amazon-mws)												- API for Amazon MWS Requests
 
 ## Setup
 
@@ -64,7 +60,38 @@ Select your parameters and hit submit. your screen will time out, but if you loo
 
 ## Models
 
-- Category
-    - Title
-        - Value
+##### Categories
 
+This is a self-building tree of category strings which represent the `node_ids` of amazon search categories 
+
+##### Products
+
+This contains all necessary information about a standard product on amazon
+
+##### Titles
+
+This contains query titles one would find on a searchable amazon category page. Example titles include (price, avg rating, brand)
+
+##### Values
+
+This contains query values which relate to query titles one would find on a searchable amazon category page. Example values for a (price) query title might include ($1.00-$4.99, $5.00-$9.99, $10.00-$19.99)
+
+## FAQ
+
+##### How do I repull categories?
+
+Run the following commands
+
+`python manage.py shell`
+
+`execfile('scripts/get_categories.py')`
+
+**Note:** This might take a very long time to run. It has to make thousands of requests
+
+##### How do I repull query titles and query values?
+
+Open up `scripts/get_query_tables.py` and change `start` and `end` to a value you'd like. These numbers represent the depths of the category tree we will grab the query titles and query values from. The wider the range, the longer it takes to run. The smaller the `start` number, the less specification you get in terms of query titles. This applies to a very large `end` number as well. A good `start` and `end	` is `6` and `9`, respectively. The number of available query titles mapped against `start` and `end` numbers would result in a bell graph. 
+
+##### Can I run a task when the web scraper starts or stops running?
+
+Definitely! If you navigate to `amazon_scraper/amazon_scraper/extensions/custom.py` you'll notice `spider_opened` and `spider_closed` functions. Edit these accordinly to run whatever task you want to run.   

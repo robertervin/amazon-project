@@ -11,8 +11,6 @@ import re
 import requests
 import sys
 
-from amazon.api import AmazonAPI
-
 from amazonproduct import API
 api = API(locale='us')
 
@@ -64,39 +62,40 @@ class AmazonSpider(scrapy.Spider):
                 return
             
             products_grid = [products_grid[p].group(0) for p in range(0, len(products_grid))]
-            
+            # Ensure uniqueness
+            products_grid = list(set(products_grid))
+
             for asin in products_grid:
-                print asin
                 try:
-                    # result = api.item_lookup(asin, ResponseGroup='Large')
+                    result = api.item_lookup(ItemId=asin, ResponseGroup="Large")
                     product_data = {}
                     product_data['ASIN'] = asin
-                    # product_data['title'] = result.Items.Item.ItemAttributes.Title
-                    # r = HTMLParser.HTMLParser()
-                    # product_data['title'] = r.unescape(product_data['title'])
-                    # product_data['product_url'] = result.Items.Item.DetailPageURL
-                    # try:
-                    #     product_data['upc'] = result.Items.Item.ItemAttributes.UPC
-                    # except:
-                    #     pass
-                    # product_data['price'] = result.Items.Item.ItemAttributes.ListPrice.Amount
-                    # product_data['image'] = result.Items.Item.LargeImage.URL
+                    print asin
+                    product_data['title'] = result.Items.Item.ItemAttributes.Title
+                    r = HTMLParser.HTMLParser()
+                    product_data['title'] = r.unescape(product_data['title'])
+                    product_data['product_url'] = result.Items.Item.DetailPageURL
+                    try:
+                        product_data['upc'] = result.Items.Item.ItemAttributes.UPC
+                    except:
+                        pass
+                    product_data['price'] = result.Items.Item.ItemAttributes.ListPrice.Amount
+                    product_data['image'] = result.Items.Item.LargeImage.URL
                     # Gets url for reviews iframe
-                    # reviews_url = (result.Items.Item.CustomerReviews.IFrameURL)
-                    # product_data['reviews_url'] = reviews_url
-                    # response = requests.get(str(reviews_url))
-                    # tree = lxml.etree.HTML(response.text)
-                    # has_reviews = False
-                    # try:
-                    #     avg_rating = float(tree.xpath('//span[@class="crAvgStars"]/span/a/img/@title')[0][:3])
-                    #     num_reviews = int(re.sub('[^0-9]+', '', tree.xpath('//span[@class="crAvgStars"]/a/text()')[0]))
-                    #     product_data['avg_rating'] = avg_rating
-                    #     product_data['num_reviews'] = num_reviews
-                    #     has_reviews = True
-                    # except: #no reviews
-                    #     print 'No Reviews'
-                    #     pass
-                    # raw_input(product_data)
+                    reviews_url = (result.Items.Item.CustomerReviews.IFrameURL)
+                    product_data['reviews_url'] = reviews_url
+                    response = requests.get(str(reviews_url))
+                    tree = lxml.etree.HTML(response.text)
+                    has_reviews = False
+                    try:
+                        avg_rating = float(tree.xpath('//span[@class="crAvgStars"]/span/a/img/@title')[0][:3])
+                        num_reviews = int(re.sub('[^0-9]+', '', tree.xpath('//span[@class="crAvgStars"]/a/text()')[0]))
+                        product_data['avg_rating'] = avg_rating
+                        product_data['num_reviews'] = num_reviews
+                        has_reviews = True
+                    except: #no reviews
+                        print 'No Reviews'
+                        pass
                     product_obj = Product.objects.create(**product_data)
                     self.parsed_products.append(asin)
                     # product_obj = 0
@@ -104,7 +103,6 @@ class AmazonSpider(scrapy.Spider):
                     # if has_reviews:
                     #     grab_reviews(tree, product_obj)
                 except:
-                    traceback.print_exc()
                     continue
         except:
             print "Failed: " + response.url

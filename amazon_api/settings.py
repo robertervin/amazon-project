@@ -99,3 +99,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+SECRET_KEY = "N7OfGglpimTDHDZ66Atrave5IXMYQglUU2KMvy+d"
+AWS_ACCESS_KEY_ID = "AKIAIINSZGYAWPTNTQ2Q"
+MWS_AUTH_TOKEN = "amzn.mws.10a531e3-93c2-bc00-048a-2c0b1aaa514a"
+SELLER_ID = "APU0JM2T87DK7"
