@@ -16,7 +16,7 @@ SPIDER_MODULES = ['amazon_scraper.spiders']
 NEWSPIDER_MODULE = 'amazon_scraper.spiders'
 
 EXTENSIONS = {
-    'amazon_scraper.extensions.custom.AvailabilitySpider': 0
+    'amazon_scraper.extensions.custom.AvailabilitySpider': 0,
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -26,12 +26,7 @@ CONCURRENT_REQUESTS = 5
 
 DOWNLOAD_TIMEOUT = 720
 
-# Setting up django's project full path.
-# sys.path.insert(0, os.path.join(dirname(dirname(dirname(__file__))))
-
-# Change the path to where you are storing the project
-PROJECT_PATH = '/var/www/amazon-project'
-sys.path.insert(0, PROJECT_PATH)
+COOKIES_ENABLED = False
 
 # Setting up django's settings module name.
 os.environ['DJANGO_SETTINGS_MODULE'] = 'amazon_api.settings'

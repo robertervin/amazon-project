@@ -26,5 +26,7 @@ class AvailabilitySpider(object):
         """
         Do whatever you want when the spider is closed
         """
+        spider.log('closing spider %s' % spider.name)
+        execfile('./close_connection.sh')
 
        

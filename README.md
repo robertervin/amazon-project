@@ -58,6 +58,8 @@ When you navigate to the url, it should return the matching Key, Value Set Pairs
 
 Select your parameters and hit submit. your screen will time out, but if you look in your terminal, you should soon see a Twisted server spin up and deploy the web scrapers. 
 
+**Note:** After your scraper closes, exit it using **CTRL+C** and type `sudo fuser -k 8000/tcp` to make sure you kill the Twisted server in the background.
+
 ## Models
 
 ##### Categories
